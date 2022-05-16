@@ -21,7 +21,7 @@ public class SyndicatorController {
         this.syndicatorService = syndicatorService;
     }
 
-    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public SyndicatorDto getSyndicator(Long id){
         return syndicatorService.getSyndicator(id);
     }
@@ -37,7 +37,7 @@ public class SyndicatorController {
         return syndicatorService.createSyndicator(syndicatorDto);
     }
 
-    @PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SyndicatorDto updateSyndicator(@RequestBody SyndicatorDto syndicatorDto) {
         return syndicatorService.updateSyndicator(syndicatorDto);
@@ -73,7 +73,7 @@ public class SyndicatorController {
         return portfolioDto;
     }
 
-    @DeleteMapping(path = "/{syndicatorid}/portfolio/{id}")
+    @DeleteMapping(path = "/{syndicatorid}/portfolio/{portfolioid}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deletePortfolio(@PathVariable Long syndicatorid, @PathVariable Long portfolioid) {
         syndicatorService.removePortfolio(syndicatorid, portfolioid);

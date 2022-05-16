@@ -1,9 +1,11 @@
 package com.roe.almaserver.model;
 
+import com.roe.almaserver.dto.PortfolioDto;
 import com.roe.almaserver.dto.SyndicatorDto;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,11 +13,13 @@ import java.util.stream.Collectors;
 @Table(name = "syndicators")
 public class Syndicator {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "syndicators_seq", sequenceName = "syndicators_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "syndicators_seq")
     @Column(name = "syr_id")
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "syndicator", targetEntity = Portfolio.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "syndicator",
+            targetEntity = Portfolio.class, orphanRemoval = true)
     private Set<Portfolio> portfolios = new HashSet<>();
 
     @Column(name = "syr_name")
@@ -24,11 +28,29 @@ public class Syndicator {
     @Column(name = "syr_activated")
     private boolean activated;
 
-    public Syndicator() {}
+    public Syndicator() {
+        activated = true;
+    }
 
-    public Syndicator bind(SyndicatorDto syndicatorDto){
+    public Syndicator bind(SyndicatorDto syndicatorDto) {
         setName(syndicatorDto.getName());
+        bindPortfolios(syndicatorDto.getPortfolios());
         return this;
+    }
+
+    public void bindPortfolios(Set<PortfolioDto> portfolioDtoSet) {
+        // portfolios
+        Set<PortfolioDto> newPortfolios = portfolioDtoSet.stream().filter(p -> p.getId() == null).collect(Collectors.toSet());
+        Map<Long, PortfolioDto> existingPortfoliosDtoMap = portfolioDtoSet.stream().filter(p -> p.getId() != null).collect(Collectors.toMap(PortfolioDto::getId, item -> item, (a, b) -> a));
+        // remove deleted
+        getPortfolios().removeIf(p -> !existingPortfoliosDtoMap.containsKey(p.getId()));
+        // update existing portfolios
+        getPortfolios().stream().filter(p -> existingPortfoliosDtoMap.containsKey(p.getId()))
+                .collect(Collectors.toSet())
+                .forEach(p -> p.bind(existingPortfoliosDtoMap.get(p.getId())));
+        // create new portfolios
+        newPortfolios.forEach(p -> getPortfolios().add(new Portfolio(this).bind(p)));
+
     }
 
     public void setId(Long id) {

@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class SyndicatorDto {
     private Long id;
-    private Set<PortfolioDto> portfolioDtoSet;
+    private Set<PortfolioDto> portfolios;
     private String name;
 
     public SyndicatorDto() {
@@ -12,24 +12,25 @@ public class SyndicatorDto {
 
     public SyndicatorDto(Long id, Set<PortfolioDto> portfolioDtoSet) {
         this.id = id;
-        this.portfolioDtoSet = portfolioDtoSet;
+        this.portfolios = portfolioDtoSet;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public SyndicatorDto setId(Long id) {
         this.id = id;
-    }
-
-    public SyndicatorDto setPortfolioDtoSet(Set<PortfolioDto> portfolioDtoSet) {
-        this.portfolioDtoSet = portfolioDtoSet;
         return this;
     }
 
-    public Set<PortfolioDto> getPortfolioDtoSet() {
-        return portfolioDtoSet;
+    public SyndicatorDto setPortfolios(Set<PortfolioDto> portfolios) {
+        this.portfolios = portfolios;
+        return this;
+    }
+
+    public Set<PortfolioDto> getPortfolios() {
+        return portfolios;
     }
 
     public SyndicatorDto setName(String name) {

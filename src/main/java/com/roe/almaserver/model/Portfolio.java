@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Table(name = "portfolios")
 public class Portfolio {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="portfolios_seq",sequenceName="portfolios_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="portfolios_seq")
     @Column(name = "prt_id")
     private Long id;
 
@@ -23,8 +24,8 @@ public class Portfolio {
 
     public Portfolio(){}
 
-    public Portfolio(Syndicator syndicator, PortfolioDto portfolioDto) {
-        this.syndicator = syndicator;
+    public Portfolio(Syndicator syndicator) {
+        setSyndicator(syndicator);
     }
 
     public Portfolio bind(PortfolioDto portfolioDto) {

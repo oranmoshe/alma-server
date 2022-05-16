@@ -1,9 +1,11 @@
 package com.roe.almaserver.dto;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PortfolioDto {
     private Long id;
+    @JsonIgnore
     private Long syndicatorId;
     private String name;
     public PortfolioDto(){}
@@ -16,10 +18,11 @@ public class PortfolioDto {
         return this;
     }
 
+    @JsonIgnore
     public Long getSyndicatorId() {
         return syndicatorId;
     }
-
+    @JsonProperty
     public PortfolioDto setSyndicatorId(Long syndicatorId) {
         this.syndicatorId = syndicatorId;
         return this;
@@ -29,7 +32,8 @@ public class PortfolioDto {
         return name;
     }
 
-    public void setName(String name) {
+    public PortfolioDto setName(String name) {
         this.name = name;
+        return this;
     }
 }

@@ -11,9 +11,14 @@ import com.roe.almaserver.repository.PortfolioRepository;
 import com.roe.almaserver.repository.SyndicatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,21 +50,18 @@ public class SyndicatorService {
 
     public SyndicatorDto createSyndicator(SyndicatorDto syndicatorDto) {
         Syndicator syndicator = new Syndicator().bind(syndicatorDto);
-        //syndicator.getPortfolios().addAll(syndicatorDto.getPortfolioDtoSet().stream().map(portfolioDto -> new Portfolio(syndicator, portfolioDto)).collect(Collectors.toSet()));
         return Mapper.toSyndicatorDto(this.syndicatorRepository.save(syndicator));
     }
 
     public SyndicatorDto updateSyndicator(SyndicatorDto syndicatorDto) {
         Syndicator syndicator = getSyndicatorEntity(syndicatorDto.getId());
         syndicator.bind(syndicatorDto);
-        syndicator.getPortfolios().clear();
-        syndicator.getPortfolios().addAll(syndicatorDto.getPortfolioDtoSet().stream().map(portfolioDto -> new Portfolio(syndicator, portfolioDto)).collect(Collectors.toSet()));
         return Mapper.toSyndicatorDto(this.syndicatorRepository.save(syndicator));
     }
 
     public PaginatedResponse<SyndicatorDto> getSyndicatorListPage(Pageable pageable) {
         Page<Syndicator> syndicatorList = syndicatorRepository.findSyndicatorActivatedList(pageable);
-        Page<SyndicatorDto> syndicatorDtoPage = (Page<SyndicatorDto>) syndicatorList.getContent().stream().map(s->Mapper.toSyndicatorDto(s)).collect(Collectors.toSet());
+        Page<SyndicatorDto> syndicatorDtoPage = new PageImpl<>(syndicatorList.getContent().stream().map(s->Mapper.toSyndicatorDto(s)).collect(Collectors.toList()));
         return new PaginatedResponse<>(syndicatorDtoPage.getContent(), (int) syndicatorDtoPage.getTotalElements());
     }
 
@@ -70,7 +72,7 @@ public class SyndicatorService {
 
     public void addPortfolio(PortfolioDto portfolioDto) {
         Syndicator syndicator = getSyndicatorEntity(portfolioDto.getSyndicatorId());
-        syndicator.getPortfolios().add(new Portfolio(syndicator, portfolioDto));
+        syndicator.getPortfolios().add(new Portfolio(syndicator).bind(portfolioDto));
         this.syndicatorRepository.save(syndicator);
     }
 
@@ -82,7 +84,7 @@ public class SyndicatorService {
     }
     public PaginatedResponse<PortfolioDto> getPortfolioListPage(Pageable pageable, Long syndicatorId) {
         Page<Portfolio> portfolioList = portfolioRepository.findPortfolioListPage(pageable, syndicatorId);
-        Page<PortfolioDto> portfolioListDto = (Page<PortfolioDto>) portfolioList.getContent().stream().map(p->Mapper.toPortfolioDto(p)).collect(Collectors.toSet());
+        Page<PortfolioDto> portfolioListDto = new PageImpl<>(portfolioList.getContent().stream().map(s->Mapper.toPortfolioDto(s)).collect(Collectors.toList()));
         return new PaginatedResponse<>(portfolioListDto.getContent(), (int) portfolioListDto.getTotalElements());
     }
     public void removeSyndicator(Long id) {
@@ -93,7 +95,7 @@ public class SyndicatorService {
         Syndicator syndicator = getSyndicatorEntity(syndicatorid);
         if(syndicator.getPortfolios().stream().noneMatch(p->p.getId().equals(portfolioid)))
             throw new EntityNotFoundException(Portfolio.class, portfolioid);
-        syndicator.setPortfolios(syndicator.getPortfolios().stream().filter(p->p.getId().equals(portfolioid)).collect(Collectors.toSet()));
+        syndicator.getPortfolios().removeIf(p->p.getId().equals(portfolioid));
         this.syndicatorRepository.save(syndicator);
     }
 }

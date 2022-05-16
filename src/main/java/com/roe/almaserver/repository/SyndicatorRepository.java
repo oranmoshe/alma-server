@@ -14,13 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface SyndicatorRepository extends PagingAndSortingRepository<Syndicator, Long>, JpaSpecificationExecutor<Syndicator> {
-    @Query("SELECT "
-            + "DISTINCT (syndicator) from Syndicator syndicator "
-            + "JOIN FETCH "
-            + "syndicator.portfolios portfolios "
-            + "WHERE "
-            + "portfolios.id = :portfolioId")
-    Optional<Syndicator> findByPortfolio(Long portfolioId);
+
 
     @Query("SELECT s from Syndicator s where s.activated = TRUE ORDER BY s.name")
     Page<Syndicator> findSyndicatorActivatedList(Pageable pageable);
