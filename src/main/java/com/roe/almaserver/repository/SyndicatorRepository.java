@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface SyndicatorRepository extends PagingAndSortingRepository<Syndicator, Long>, JpaSpecificationExecutor<Syndicator> {
 
-
     @Query("SELECT s from Syndicator s where s.activated = TRUE ORDER BY s.name")
     Page<Syndicator> findSyndicatorActivatedList(Pageable pageable);
+
 }
