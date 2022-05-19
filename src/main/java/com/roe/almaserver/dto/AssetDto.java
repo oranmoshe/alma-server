@@ -1,161 +1,153 @@
-package com.roe.almaserver.model;
+package com.roe.almaserver.dto;
 
 import com.roe.almaserver.enums.AssetType;
 import com.roe.almaserver.enums.OfferingStatus;
 import com.roe.almaserver.enums.SubscriptionType;
 import com.roe.almaserver.enums.Visibility;
-
-import javax.persistence.*;
+import com.roe.almaserver.model.AssetAttachment;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Asset")
-@Table(name = "assets")
-public class Asset {
-    @Id
-    @SequenceGenerator(name="assets_seq",sequenceName="assets_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="assets_seq")
-    @Column(name = "ass_id")
+public class AssetDto {
     private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ass_type")
     private AssetType assetType;
-    @Column(name = "ass_name")
     private String name;
-    @Column(name = "ass_offering_status")
     private OfferingStatus offeringStatus;
-    @Column(name = "ass_subscription_type")
     private SubscriptionType subscriptionType;
-    @Column(name = "ass_visibility")
     private Visibility visibility;
-    @Column(name = "ass_entity_name")
     private String entityName;
-    @Column(name = "ass_start_date")
     private Timestamp startDate;
-    @Column(name = "ass_offering_size")
     private String offeringSize;
-    @Column(name = "ass_minimum_investment")
     private String minimumInvestment;
-    @Column(name = "ass_public_landing_page")
     private Boolean publicLandingPage;
-    @Column(name = "ass_show_per_raised")
     private Boolean showPerRaised;
-    @Column(name = "ass_link_to_offering")
     private String linkToOffering;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "asset",
-            targetEntity = AssetAttachment.class, orphanRemoval = true)
-    private Set<AssetAttachment> assetAttachments = new HashSet<>();
+    private Set<AssetAttachmentDto> assetAttachments = new HashSet<>();
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public AssetDto setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public AssetType getAssetType() {
         return assetType;
     }
 
-    public void setAssetType(AssetType assetType) {
+    public AssetDto setAssetType(AssetType assetType) {
         this.assetType = assetType;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public AssetDto setName(String name) {
         this.name = name;
+        return this;
     }
 
     public OfferingStatus getOfferingStatus() {
         return offeringStatus;
     }
 
-    public void setOfferingStatus(OfferingStatus offeringStatus) {
+    public AssetDto setOfferingStatus(OfferingStatus offeringStatus) {
         this.offeringStatus = offeringStatus;
+        return this;
     }
 
     public SubscriptionType getSubscriptionType() {
         return subscriptionType;
     }
 
-    public void setSubscriptionType(SubscriptionType subscriptionType) {
+    public AssetDto setSubscriptionType(SubscriptionType subscriptionType) {
         this.subscriptionType = subscriptionType;
+        return this;
     }
 
     public Visibility getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Visibility visibility) {
+    public AssetDto setVisibility(Visibility visibility) {
         this.visibility = visibility;
+        return this;
     }
 
     public String getEntityName() {
         return entityName;
     }
 
-    public void setEntityName(String entityName) {
+    public AssetDto setEntityName(String entityName) {
         this.entityName = entityName;
+        return this;
     }
 
     public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public AssetDto setStartDate(Timestamp startDate) {
         this.startDate = startDate;
+        return this;
     }
 
     public String getOfferingSize() {
         return offeringSize;
     }
 
-    public void setOfferingSize(String offeringSize) {
+    public AssetDto setOfferingSize(String offeringSize) {
         this.offeringSize = offeringSize;
+        return this;
     }
 
     public String getMinimumInvestment() {
         return minimumInvestment;
     }
 
-    public void setMinimumInvestment(String minimumInvestment) {
+    public AssetDto setMinimumInvestment(String minimumInvestment) {
         this.minimumInvestment = minimumInvestment;
+        return this;
     }
 
     public Boolean getPublicLandingPage() {
         return publicLandingPage;
     }
 
-    public void setPublicLandingPage(Boolean publicLandingPage) {
+    public AssetDto setPublicLandingPage(Boolean publicLandingPage) {
         this.publicLandingPage = publicLandingPage;
+        return this;
     }
 
     public Boolean getShowPerRaised() {
         return showPerRaised;
     }
 
-    public void setShowPerRaised(Boolean showPerRaised) {
+    public AssetDto setShowPerRaised(Boolean showPerRaised) {
         this.showPerRaised = showPerRaised;
+        return this;
     }
 
     public String getLinkToOffering() {
         return linkToOffering;
     }
 
-    public void setLinkToOffering(String linkToOffering) {
+    public AssetDto setLinkToOffering(String linkToOffering) {
         this.linkToOffering = linkToOffering;
+        return this;
     }
 
-    public Set<AssetAttachment> getAssetAttachments() {
+    public Set<AssetAttachmentDto> getAssetAttachments() {
         return assetAttachments;
     }
 
-    public void setAssetAttachments(Set<AssetAttachment> assetAttachments) {
+    public AssetDto setAssetAttachments(Set<AssetAttachmentDto> assetAttachments) {
         this.assetAttachments = assetAttachments;
+        return this;
     }
 }

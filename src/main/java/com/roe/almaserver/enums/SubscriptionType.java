@@ -1,4 +1,4 @@
-package com.roe.almaserver.dto;
+package com.roe.almaserver.enums;
 
 public enum SubscriptionType {
     INVESTMENT,COMMITMENT
