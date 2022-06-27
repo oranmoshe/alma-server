@@ -32,26 +32,25 @@ public class Syndicator {
         activated = true;
     }
 
-    public Syndicator bind(SyndicatorDto syndicatorDto) {
-        setName(syndicatorDto.getName());
-        bindPortfolios(syndicatorDto.getPortfolios());
-        return this;
-    }
-
-    public void bindPortfolios(Set<PortfolioDto> portfolioDtoSet) {
-        // portfolios
-        Set<PortfolioDto> newPortfolios = portfolioDtoSet.stream().filter(p -> p.getId() == null).collect(Collectors.toSet());
-        Map<Long, PortfolioDto> existingPortfoliosDtoMap = portfolioDtoSet.stream().filter(p -> p.getId() != null).collect(Collectors.toMap(PortfolioDto::getId, item -> item, (a, b) -> a));
-        // remove deleted
-        getPortfolios().removeIf(p -> !existingPortfoliosDtoMap.containsKey(p.getId()));
-        // update existing portfolios
-        getPortfolios().stream().filter(p -> existingPortfoliosDtoMap.containsKey(p.getId()))
-                .collect(Collectors.toSet())
-                .forEach(p -> p.bind(existingPortfoliosDtoMap.get(p.getId())));
-        // create new portfolios
-        newPortfolios.forEach(p -> getPortfolios().add(new Portfolio(this).bind(p)));
-
-    }
+//    public Syndicator bind(SyndicatorDto syndicatorDto) {
+//        setName(syndicatorDto.getName());
+//        bindPortfolios(syndicatorDto.getPortfolios());
+//        return this;
+//    }
+//
+//    public void bindPortfolios(Set<PortfolioDto> portfolioDtoSet) {
+//        // portfolios
+//        Set<PortfolioDto> newPortfolios = portfolioDtoSet.stream().filter(p -> p.getId() == null).collect(Collectors.toSet());
+//        Map<Long, PortfolioDto> existingPortfoliosDtoMap = portfolioDtoSet.stream().filter(p -> p.getId() != null).collect(Collectors.toMap(PortfolioDto::getId, item -> item, (a, b) -> a));
+//        // remove deleted
+//        getPortfolios().removeIf(p -> !existingPortfoliosDtoMap.containsKey(p.getId()));
+//        // update existing portfolios
+//        getPortfolios().stream().filter(p -> existingPortfoliosDtoMap.containsKey(p.getId()))
+//                .collect(Collectors.toSet())
+//                .forEach(p -> p.bind(existingPortfoliosDtoMap.get(p.getId())));
+//        // create new portfolios
+//        newPortfolios.forEach(p -> getPortfolios().add(new Portfolio(this).bind(p)));
+//    }
 
     public void setId(Long id) {
         this.id = id;
