@@ -28,9 +28,9 @@ public class SyndicatorController {
         this.syndicatorService = syndicatorService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public SyndicatorDto getSyndicator(Long id) {
-        Syndicator syndicator = syndicatorService.getSyndicator(id);
+    @GetMapping(path = "/{syndicatorid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public SyndicatorDto getSyndicator(@PathVariable  Long syndicatorid) {
+        Syndicator syndicator = syndicatorService.getSyndicator(syndicatorid);
         return Converter.convertToDto(syndicator);
     }
 
