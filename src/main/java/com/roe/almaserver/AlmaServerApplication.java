@@ -103,7 +103,8 @@ public class AlmaServerApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://alma-app-client.herokuapp.com");
+				registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://alma-app-client.herokuapp.com")
+						.allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
 			}
 		};
 	}
