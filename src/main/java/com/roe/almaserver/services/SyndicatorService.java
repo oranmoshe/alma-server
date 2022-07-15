@@ -49,9 +49,10 @@ public class SyndicatorService {
         return syndicatorRepository.findSyndicatorActivatedList(pageable);
     }
 
-    public void addPortfolio(Portfolio portfolio) {
-        Syndicator syndicator = portfolio.getSyndicator();
+    public void addPortfolio(Long syndicatorid, Portfolio portfolio) {
+        Syndicator syndicator = getSyndicator(syndicatorid);
         syndicator.getPortfolios().add(portfolio);
+        portfolio.setSyndicator(syndicator);
         this.syndicatorRepository.save(syndicator);
     }
 

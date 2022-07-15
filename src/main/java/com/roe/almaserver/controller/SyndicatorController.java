@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
@@ -80,9 +81,9 @@ public class SyndicatorController {
 
     @PostMapping(path = "/{syndicatorid}/portfolio", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PortfolioDto addPortfolio(@RequestBody PortfolioDto portfolioDto) {
-        syndicatorService.addPortfolio(Converter.convertToEntity(portfolioDto));
-        return portfolioDto;
+    public ResponseEntity<String> addPortfolio(@PathVariable Long syndicatorid, @RequestBody PortfolioDto portfolioDto) {
+        syndicatorService.addPortfolio(syndicatorid, Converter.convertToEntity(portfolioDto));
+        return new ResponseEntity<>("OK",HttpStatus.OK);
     }
 
     @PutMapping(path = "/{syndicatorid}/portfolio", consumes = MediaType.APPLICATION_JSON_VALUE)
