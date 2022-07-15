@@ -88,8 +88,8 @@ public class SyndicatorController {
 
     @PutMapping(path = "/{syndicatorid}/portfolio", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public PortfolioDto updatePortfolioDetails(@RequestBody PortfolioDto portfolioDto) {
-        Portfolio portfolio = syndicatorService.updatePortfolioDetails(Converter.convertToEntity(portfolioDto));
+    public PortfolioDto updatePortfolioDetails(@PathVariable Long syndicatorid, @RequestBody PortfolioDto portfolioDto) {
+        Portfolio portfolio = syndicatorService.updatePortfolioDetails(syndicatorid, portfolioDto);
         return Converter.convertToDto(portfolio);
     }
 

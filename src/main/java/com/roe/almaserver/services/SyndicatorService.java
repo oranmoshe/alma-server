@@ -1,5 +1,6 @@
 package com.roe.almaserver.services;
 
+import com.roe.almaserver.dto.PortfolioDto;
 import com.roe.almaserver.exceptions.EntityNotFoundException;
 import com.roe.almaserver.model.Portfolio;
 import com.roe.almaserver.model.Syndicator;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.sound.sampled.Port;
 import java.util.Objects;
 
 @Service
@@ -56,9 +58,14 @@ public class SyndicatorService {
         this.syndicatorRepository.save(syndicator);
     }
 
-    public Portfolio updatePortfolioDetails(Portfolio other) {
-        Portfolio portfolio = getPortfolio(other.getSyndicator().getId(), other.getId());
-        portfolio.setName(other.getName());
+    public Portfolio updatePortfolioDetails(Long syndicatorId, PortfolioDto newPortfolio) {
+        Portfolio portfolio = getPortfolio(syndicatorId, newPortfolio.getId());
+        portfolio.setName(newPortfolio.getName());
+        portfolio.setStatus(newPortfolio.getStatus());
+        portfolio.setCustomerName(newPortfolio.getCustomerName());
+        portfolio.setAmount(newPortfolio.getAmount());
+        portfolio.setPriority(newPortfolio.getPriority());
+        portfolio.setOfferingName(newPortfolio.getOfferingName());
         return this.portfolioRepository.save(portfolio);
     }
     public Page<Portfolio> getPortfolioListPage(Pageable pageable, Long syndicatorId) {
