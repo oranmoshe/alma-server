@@ -4,7 +4,7 @@ import com.roe.almaserver.enums.AssetType;
 import com.roe.almaserver.enums.OfferingStatus;
 import com.roe.almaserver.enums.SubscriptionType;
 import com.roe.almaserver.enums.Visibility;
-import com.roe.almaserver.model.AssetAttachment;
+
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;

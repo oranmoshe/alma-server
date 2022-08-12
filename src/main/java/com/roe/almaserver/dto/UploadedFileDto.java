@@ -1,56 +1,47 @@
 package com.roe.almaserver.dto;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UploadedFileDto {
+
     private Long id;
     private String name;
-    private String extension;
-    private String fullName;
     private String path;
+    @JsonIgnore
+    private PortfolioDto portfolio;
+
+    public UploadedFileDto() {
+    }
 
     public Long getId() {
         return id;
     }
 
-    public UploadedFileDto setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public UploadedFileDto setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public UploadedFileDto setExtension(String extension) {
-        this.extension = extension;
-        return this;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public UploadedFileDto setFullName(String fullName) {
-        this.fullName = fullName;
-        return this;
     }
 
     public String getPath() {
         return path;
     }
 
-    public UploadedFileDto setPath(String path) {
+    public void setPath(String path) {
         this.path = path;
-        return this;
+    }
+
+    public PortfolioDto getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(PortfolioDto portfolio) {
+        this.portfolio = portfolio;
     }
 }

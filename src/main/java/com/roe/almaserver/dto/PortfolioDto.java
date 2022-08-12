@@ -2,9 +2,13 @@ package com.roe.almaserver.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.roe.almaserver.model.UploadedFile;
 
 import javax.persistence.Column;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class PortfolioDto {
     private Long id;
@@ -15,9 +19,13 @@ public class PortfolioDto {
     private  Timestamp creationDate;
     private  String priority;
     private  String status;
+    private  String location;
 
     @JsonIgnore
     private SyndicatorDto syndicatorDto;
+
+    private List<UploadedFileDto> uploadedFiles = new ArrayList<>();
+
     public PortfolioDto(){}
     public Long getId() {
         return id;
@@ -92,4 +100,16 @@ public class PortfolioDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public List<UploadedFileDto> getUploadedFiles() {
+        return uploadedFiles;
+    }
+
+    public void setUploadedFiles(List<UploadedFileDto> uploadedFiles) {
+        this.uploadedFiles = uploadedFiles;
+    }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
 }

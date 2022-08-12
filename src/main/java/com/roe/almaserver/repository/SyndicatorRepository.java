@@ -17,8 +17,9 @@ public interface SyndicatorRepository extends PagingAndSortingRepository<Syndica
     Page<Syndicator> findSyndicatorActivatedList(Pageable pageable);
 
     @Query("SELECT s from Syndicator as s " +
-//            "JOIN FETCH s.portfolios as p" +
-            " WHERE s.id = ?1 ")
-    Optional<Syndicator> findSyndicatorEagerly(Long id);
+            "left JOIN FETCH s.portfolios as p " +
+            //"left JOIN FETCH p.uploadedFiles as f " +
+            "WHERE s.id = ?1 and p.id = ?2")
+    Optional<Syndicator> findSyndicatorEagerly(Long portfolioid, Long syndicatorid);
 
 }

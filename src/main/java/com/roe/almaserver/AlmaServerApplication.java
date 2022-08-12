@@ -1,5 +1,6 @@
 package com.roe.almaserver;
 
+import com.roe.almaserver.configuration.FileStorageProperties;
 import com.roe.almaserver.model.Portfolio;
 import com.roe.almaserver.model.Syndicator;
 import com.roe.almaserver.repository.SyndicatorRepository;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -31,9 +33,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 @SpringBootApplication
+@EnableConfigurationProperties(value = {
+		FileStorageProperties.class
+})
 public class AlmaServerApplication {
 
 	@Autowired

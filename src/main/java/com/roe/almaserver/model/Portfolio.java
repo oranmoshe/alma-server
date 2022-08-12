@@ -1,10 +1,13 @@
 package com.roe.almaserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.roe.almaserver.dto.PortfolioDto;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "Portfolio")
 @Table(name = "portfolios")
@@ -41,7 +44,13 @@ public class Portfolio {
     @Column(name = "prt_status")
     private  String status;
 
-    private Portfolio(){}
+    @Column(name = "prt_location")
+    private  String location;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "portfolio", targetEntity = UploadedFile.class, orphanRemoval = true)
+    private Set<UploadedFile> uploadedFiles = new HashSet<>();
+
+    public Portfolio(){}
 
     public Portfolio(Syndicator syndicator) {
         setSyndicator(syndicator);
@@ -118,4 +127,20 @@ public class Portfolio {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public void addAssetAttachments(UploadedFile uploadedFile) {
+        this.uploadedFiles.add(uploadedFile);
+    }
+
+    public void removeAssetAttachments(Long uploadedFileId) {
+        this.uploadedFiles.removeIf(u->u.getId().equals(uploadedFileId));
+    }
+
+    public Set<UploadedFile> getUploadedFiles() { return uploadedFiles; }
+
+    public void setUploadedFiles(Set<UploadedFile> uploadedFiles) { this.uploadedFiles = uploadedFiles; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
 }
