@@ -50,6 +50,9 @@ public class Portfolio {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "portfolio", targetEntity = UploadedFile.class, orphanRemoval = true)
     private Set<UploadedFile> uploadedFiles = new HashSet<>();
 
+    @Column(name = "prt_summary")
+    private  String summary;
+
     public Portfolio(){}
 
     public Portfolio(Syndicator syndicator) {
@@ -143,4 +146,8 @@ public class Portfolio {
     public String getLocation() { return location; }
 
     public void setLocation(String location) { this.location = location; }
+
+    public String getSummary() { return summary; }
+
+    public void setSummary(String summary) { this.summary = summary; }
 }

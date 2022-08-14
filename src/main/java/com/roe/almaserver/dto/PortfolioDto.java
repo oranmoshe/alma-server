@@ -21,6 +21,8 @@ public class PortfolioDto {
     private  String status;
     private  String location;
 
+    private  String summary;
+
     @JsonIgnore
     private SyndicatorDto syndicatorDto;
 
@@ -112,4 +114,8 @@ public class PortfolioDto {
     public String getLocation() { return location; }
 
     public void setLocation(String location) { this.location = location; }
+
+    public String getSummary() { return summary; }
+
+    public void setSummary(String summary) { this.summary = summary; }
 }

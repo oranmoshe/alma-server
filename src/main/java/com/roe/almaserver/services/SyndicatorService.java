@@ -78,6 +78,8 @@ public class SyndicatorService {
         portfolio.setAmount(newPortfolio.getAmount());
         portfolio.setPriority(newPortfolio.getPriority());
         portfolio.setOfferingName(newPortfolio.getOfferingName());
+        portfolio.setLocation(newPortfolio.getLocation());
+        portfolio.setSummary(newPortfolio.getSummary());
         return this.portfolioRepository.save(portfolio);
     }
     public Page<Portfolio> getPortfolioListPage(Pageable pageable, Long syndicatorId) {
