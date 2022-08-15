@@ -51,9 +51,8 @@ public class Portfolio {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "portfolio", targetEntity = UploadedFile.class, orphanRemoval = true)
     private Set<UploadedFile> uploadedFiles = new HashSet<>();
 
-    @Column(name = "prt_summary")
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
+
+    @Column(name = "prt_summary", columnDefinition="text")
     private  String summary;
 
     public Portfolio(){}
