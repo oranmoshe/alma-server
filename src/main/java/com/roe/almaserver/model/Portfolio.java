@@ -51,6 +51,7 @@ public class Portfolio {
     private Set<UploadedFile> uploadedFiles = new HashSet<>();
 
     @Column(name = "prt_summary")
+    @Lob
     private  String summary;
 
     public Portfolio(){}
