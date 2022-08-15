@@ -1,6 +1,7 @@
 package com.roe.almaserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -52,6 +53,7 @@ public class Portfolio {
 
     @Column(name = "prt_summary")
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private  String summary;
 
     public Portfolio(){}
