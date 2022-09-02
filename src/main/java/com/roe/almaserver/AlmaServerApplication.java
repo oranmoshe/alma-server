@@ -1,9 +1,8 @@
 package com.roe.almaserver;
 
 import com.roe.almaserver.configuration.FileStorageProperties;
-import com.roe.almaserver.model.Portfolio;
-import com.roe.almaserver.model.Syndicator;
-import com.roe.almaserver.repository.SyndicatorRepository;
+import com.roe.almaserver.exceptions.model.Portfolio;
+import com.roe.almaserver.exceptions.model.Syndicator;
 import com.roe.almaserver.services.SyndicatorService;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -22,15 +21,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 

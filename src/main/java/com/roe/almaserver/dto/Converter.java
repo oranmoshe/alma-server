@@ -1,8 +1,8 @@
 package com.roe.almaserver.dto;
 
-import com.roe.almaserver.model.Portfolio;
-import com.roe.almaserver.model.Syndicator;
-import com.roe.almaserver.model.UploadedFile;
+import com.roe.almaserver.exceptions.model.Portfolio;
+import com.roe.almaserver.exceptions.model.Syndicator;
+import com.roe.almaserver.exceptions.model.UploadedFile;
 import org.modelmapper.ModelMapper;
 
 import java.util.stream.Collectors;

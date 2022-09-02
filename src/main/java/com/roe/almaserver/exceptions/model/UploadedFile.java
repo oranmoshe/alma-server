@@ -1,11 +1,9 @@
-package com.roe.almaserver.model;
+package com.roe.almaserver.exceptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.io.File;
 import java.io.IOException;
 
 @Entity(name = "UploadedFile")
@@ -24,6 +22,9 @@ public class UploadedFile {
     @Column(name = "upf_type")
     private String type;
 
+    @Column(name = "upf_upload_type")
+    private String uploadType;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Portfolio.class, optional=false)
     @JsonIgnore
     @JoinColumn(name = "set_sit_id")
@@ -31,8 +32,9 @@ public class UploadedFile {
 
     public UploadedFile(){}
 
-    public UploadedFile(MultipartFile file, String path, Portfolio portfolio) throws IOException {
-        this.name = file.getName();
+    public UploadedFile(MultipartFile file, String path, String uploadType, Portfolio portfolio) throws IOException {
+        this.name = file.getOriginalFilename();
+        this.uploadType = uploadType;
         this.type = file.getContentType();
         this.path = path;
         this.portfolio = portfolio;
@@ -74,4 +76,11 @@ public class UploadedFile {
 
     public void setPath(String path) { this.path = path; }
 
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    public void setUploadType(String uploadType) {
+        this.uploadType = uploadType;
+    }
 }

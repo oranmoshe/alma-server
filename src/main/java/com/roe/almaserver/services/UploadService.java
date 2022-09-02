@@ -2,9 +2,9 @@ package com.roe.almaserver.services;
 
 import com.roe.almaserver.configuration.FileStorageProperties;
 import com.roe.almaserver.exceptions.FileStorageException;
-import com.roe.almaserver.model.Portfolio;
-import com.roe.almaserver.model.Syndicator;
-import com.roe.almaserver.model.UploadedFile;
+import com.roe.almaserver.exceptions.model.Portfolio;
+import com.roe.almaserver.exceptions.model.Syndicator;
+import com.roe.almaserver.exceptions.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

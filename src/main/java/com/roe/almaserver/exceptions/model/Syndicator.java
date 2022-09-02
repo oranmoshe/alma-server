@@ -1,13 +1,8 @@
-package com.roe.almaserver.model;
-
-import com.roe.almaserver.dto.PortfolioDto;
-import com.roe.almaserver.dto.SyndicatorDto;
+package com.roe.almaserver.exceptions.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(name = "Syndicator")
 @Table(name = "syndicators")

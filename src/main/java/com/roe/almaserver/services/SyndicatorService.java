@@ -2,9 +2,9 @@ package com.roe.almaserver.services;
 
 import com.roe.almaserver.dto.PortfolioDto;
 import com.roe.almaserver.exceptions.EntityNotFoundException;
-import com.roe.almaserver.model.Portfolio;
-import com.roe.almaserver.model.Syndicator;
-import com.roe.almaserver.model.UploadedFile;
+import com.roe.almaserver.exceptions.model.Portfolio;
+import com.roe.almaserver.exceptions.model.Syndicator;
+import com.roe.almaserver.exceptions.model.UploadedFile;
 import com.roe.almaserver.repository.PortfolioRepository;
 import com.roe.almaserver.repository.SyndicatorRepository;
 import com.roe.almaserver.repository.UploadedFilesRepository;
@@ -98,12 +98,13 @@ public class SyndicatorService {
         this.syndicatorRepository.save(syndicator);
     }
 
-    public Portfolio addAttachments(Long syndicatorid, Long portfolioid, MultipartFile[] files) throws IOException {
+    public Portfolio addAttachments(Long syndicatorid, Long portfolioid, MultipartFile[] files,
+                                    String uploadType) throws IOException {
         Portfolio portfolio = getPortfolio(syndicatorid, portfolioid);
         for(MultipartFile file: Arrays.asList(files)) {
             //UploadedFile uploadedFile = new UploadedFile(file, portfolio);
             String path = uploadService.storeFile(file, portfolio.getSyndicator(), portfolio);
-            portfolio.addAssetAttachments(new UploadedFile(file, path, portfolio));
+            portfolio.addAssetAttachments(new UploadedFile(file, path, uploadType, portfolio));
         }
         return portfolioRepository.save(portfolio);
     }

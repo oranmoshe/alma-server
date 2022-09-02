@@ -1,4 +1,4 @@
-package com.roe.almaserver.model;
+package com.roe.almaserver.exceptions.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

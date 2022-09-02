@@ -1,14 +1,10 @@
 package com.roe.almaserver.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.roe.almaserver.model.UploadedFile;
 
-import javax.persistence.Column;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class PortfolioDto {
     private Long id;

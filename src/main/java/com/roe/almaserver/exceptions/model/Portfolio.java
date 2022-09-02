@@ -1,14 +1,11 @@
-package com.roe.almaserver.model;
+package com.roe.almaserver.exceptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(name = "Portfolio")
 @Table(name = "portfolios")
@@ -50,7 +47,6 @@ public class Portfolio {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "portfolio", targetEntity = UploadedFile.class, orphanRemoval = true)
     private Set<UploadedFile> uploadedFiles = new HashSet<>();
-
 
     @Column(name = "prt_summary", columnDefinition="text")
     private  String summary;

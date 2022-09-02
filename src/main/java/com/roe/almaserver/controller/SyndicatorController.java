@@ -3,10 +3,10 @@ package com.roe.almaserver.controller;
 import com.roe.almaserver.dto.Converter;
 import com.roe.almaserver.dto.PortfolioDto;
 import com.roe.almaserver.dto.SyndicatorDto;
-import com.roe.almaserver.model.Portfolio;
-import com.roe.almaserver.model.Syndicator;
-import com.roe.almaserver.model.UploadedFile;
-import com.roe.almaserver.model.general.PaginatedResponse;
+import com.roe.almaserver.exceptions.model.Portfolio;
+import com.roe.almaserver.exceptions.model.Syndicator;
+import com.roe.almaserver.exceptions.model.UploadedFile;
+import com.roe.almaserver.exceptions.model.general.PaginatedResponse;
 import com.roe.almaserver.repository.SyndicatorRepository;
 import com.roe.almaserver.services.SyndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,11 +114,11 @@ public class SyndicatorController {
     // Attachments
     //
 
-    @PostMapping(path = "/{syndicatorid}/portfolio/{portfolioid}/attachment")
+    @PostMapping(path = "/{syndicatorid}/portfolio/{portfolioid}/attachment/{uploadType}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PortfolioDto addPortfolioFromSyndicator(@PathVariable Long syndicatorid, @PathVariable Long portfolioid,
-                                                   @RequestParam("files") MultipartFile[] files) throws IOException {
-        return Converter.convertToDto(syndicatorService.addAttachments(syndicatorid, portfolioid, files));
+                                                   @PathVariable String uploadType, @RequestParam("files") MultipartFile[] files) throws IOException {
+        return Converter.convertToDto(syndicatorService.addAttachments(syndicatorid, portfolioid, files, uploadType));
     }
 
     @DeleteMapping(path = "/{syndicatorid}/portfolio/{portfolioid}/attachment/{attachmentId}")

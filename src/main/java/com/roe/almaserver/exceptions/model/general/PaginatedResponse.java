@@ -1,4 +1,4 @@
-package com.roe.almaserver.model.general;
+package com.roe.almaserver.exceptions.model.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

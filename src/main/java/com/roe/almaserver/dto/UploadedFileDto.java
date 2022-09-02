@@ -7,6 +7,7 @@ public class UploadedFileDto {
     private Long id;
     private String name;
     private String path;
+    private String uploadType;
     @JsonIgnore
     private PortfolioDto portfolio;
 
@@ -43,5 +44,13 @@ public class UploadedFileDto {
 
     public void setPortfolio(PortfolioDto portfolio) {
         this.portfolio = portfolio;
+    }
+
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    public void setUploadType(String uploadType) {
+        this.uploadType = uploadType;
     }
 }

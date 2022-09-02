@@ -1,6 +1,6 @@
 package com.roe.almaserver.repository;
 
-import com.roe.almaserver.model.Syndicator;
+import com.roe.almaserver.exceptions.model.Syndicator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
